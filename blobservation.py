@@ -196,7 +196,7 @@ class Blobservation:
         predators = [blob.copy() for blob in self.blobs]
         move_targets = []
         for predator in predators:
-            preys = [candidate.copy() for candidate in self.blobs if candidate['size'] < predator['size']]
+            preys = [prey.copy() for prey in self.blobs if prey['size'] < predator['size']]
             if not preys:
                 continue
             for prey in preys:
@@ -204,16 +204,16 @@ class Blobservation:
                 leg_b = abs(predator['y'] - prey['y'])
                 move_distance = max([leg_a, leg_b])
                 prey['move_distance'] = move_distance
-            min_moves = min([candidate['move_distance'] for candidate in preys])
-            preys = list(filter(lambda candidate: candidate['move_distance'] == min_moves, preys))
+            min_moves = min([prey['move_distance'] for prey in preys])
+            preys = list(filter(lambda prey: prey['move_distance'] == min_moves, preys))
             if len(preys) > 1:
-                largest = max([candidate['size'] for candidate in preys])
-                preys = list(filter(lambda candidate: candidate['size'] == largest, preys))
+                largest = max([prey['size'] for prey in preys])
+                preys = list(filter(lambda prey: prey['size'] == largest, preys))
             if len(preys) > 1:
                 for prey in preys:
                     prey['angle'] = math.atan2(prey['y'] - predator['y'], prey['x'] - predator['x'])
-                max_angle = max([candidate['angle'] for candidate in preys])
-                preys = list(filter(lambda candidate: candidate['angle'] == max_angle, preys))
+                max_angle = max([prey['angle'] for prey in preys])
+                preys = list(filter(lambda prey: prey['angle'] == max_angle, preys))
             prey = preys[0]
             move_targets.append((predator, {'x': prey['x'], 'y': prey['y']}))
         return move_targets
