@@ -276,7 +276,6 @@ class Blobservation:
         else:
             return self.blobs
 
-
 test.describe('Example Tests')
 pf = lambda x, r: test.assert_equals(x.print_state(), r)
 
