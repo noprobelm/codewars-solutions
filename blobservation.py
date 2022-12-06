@@ -137,7 +137,6 @@ class Blobservation:
         Raises:
             TypeError: An invalid type has been passed for a blob's dict representation
             ValueError: A value outside the allowed bounds for a blob's 'x', 'y', or 'size' has been passed.
-
         """
         for blob in population:
             for attribute in blob:
