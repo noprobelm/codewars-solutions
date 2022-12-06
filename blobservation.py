@@ -210,7 +210,7 @@ class Blobservation:
             preys = list(filter(lambda candidate: candidate['move_distance'] == min_moves, preys))
             if len(preys) > 1:
                 largest = max([candidate['size'] for candidate in preys])
-                preys = [candidate for candidate in preys if candidate['size'] == largest]
+                preys = list(filter(lambda candidate: candidate['size'] == largest, preys))
             if len(preys) > 1:
                 for prey in preys:
                     prey['angle'] = math.atan2(prey['y'] - predator['y'], prey['x'] - predator['x'])
