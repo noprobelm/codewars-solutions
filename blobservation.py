@@ -105,7 +105,6 @@ class Blobservation:
         - move: Iterate the blobservation by 'num_moves'
         - print_state: Return the state of the blobservation as a list of lists for the 'x', 'y', and 'size' of a blob.
         Blobservation states are sorted by 'x', then 'y', then 'size'.
-
     """
 
     def __init__(self, h: int, w: Optional[int] = None) -> None:
