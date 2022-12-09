@@ -88,7 +88,7 @@ If you enjoyed this kata, be sure to check out my other katas
 class Blobservation:
     """
     Simulation of a grid-like object which can be populated with "blobs". "Blobs" are represented as dictionaries with
-    'x', 'y' positions, and a 'size'. Blobs are popoulated by passing a list of valid blob dictionaries to the
+    'x', 'y' positions, and a 'size'. Blobs are populated by passing a list of valid blob dictionaries to the
     'populate' method. A blobservation is iterated by calling the 'move()' method. Each iteration will result in all
     valid "predator" blobs moving according to a predefined conditional ruleset, then merged with other blobs who share
     the same space in the blobservation coordinate plane.
