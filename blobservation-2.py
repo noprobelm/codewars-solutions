@@ -1,4 +1,5 @@
 import codewars_test as test
+import re
 
 
 class Blobservation:
@@ -24,10 +25,10 @@ class Blobservation:
             is_transposed = False
             is_reversed = False
 
-            if instruction == "N" or instruction == "S":
+            if re.search('N|S', instruction):
                 new = transpose(new)
                 is_transposed = True
-            if instruction == "S" or instruction == "E":
+            if re.search('S|E', instruction):
                 new = [n[::-1] for n in new]
                 is_reversed = True
             new = filter_nonzeros(new)
@@ -45,12 +46,10 @@ class Blobservation:
                     idy += 1
                 m = [sum(a) for a in absorb]
                 new[idx] = m
-
             new = fill(new)
-            if instruction == "S" or instruction == "E":
+            if is_reversed is True:
                 new = [n[::-1] for n in new]
-                print(new)
-            if instruction == "N" or instruction == "S":
+            if is_transposed is True:
                 new = [list(idx) for idx in zip(*new)]
 
             self.matrix = new
