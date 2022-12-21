@@ -12,7 +12,7 @@ class Blobservation:
         def filter_nonzeros(matrix):
             return [list(filter(lambda x: x != 0, m)) for m in matrix]
 
-        def fill_zeros(matrix):
+        def fill(matrix):
             max_array = max([len(m) for m in matrix])
             for m in matrix:
                 while len(m) < max_array:
@@ -40,7 +40,7 @@ class Blobservation:
             m = [sum(a) for a in absorb]
             new[idx] = m
 
-        new = fill_zeros(new)
+        new = fill(new)
         if instruction == "S" or instruction == "E":
             new = [n[::-1] for n in new]
             print(new)
