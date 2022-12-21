@@ -6,7 +6,7 @@ class Blobservation:
     def __init__(self, matrix):
         self.matrix = matrix
 
-    def move(self, instructions):
+    def move(self, instruction):
         def transpose(matrix):
             return [list(idx) for idx in zip(*matrix)]
 
@@ -21,29 +21,38 @@ class Blobservation:
             return matrix
 
         new = [list(m) for m in self.matrix]
-        if instructions == "N" or instructions == "S":
+        if instruction == "N" or instruction == "S":
             new = transpose(new)
         new = filter_nonzeros(new)
-        if instructions == "S" or instructions == "E":
+        if instruction == "S" or instruction == "E":
             new = [n[::-1] for n in new]
 
-        for m in new:
-            idx = 0
-            while idx < len(m) - 1:
-                if m[idx] > m[idx + 1]:
-                    m[idx] += m.pop(idx+1)
-                idx += 1
+        for idx, m in enumerate(new):
+            idy = 0
+            absorb = []
+            absorb.append([m[idy]])
+            while idy < len(m) - 1:
+
+                if m[idy] > m[idy+1]:
+                    absorb[-1].append(m[idy+1])
+                else:
+                    absorb.append([m[idy+1]])
+                idy+=1
+            m = [sum(a) for a in absorb]
+            new[idx] = m
 
         new = fill_zeros(new)
-        if instructions == "S" or instructions == "E":
+        if instruction == "S" or instruction == "E":
             new = [n[::-1] for n in new]
-        if instructions == "N" or instructions == "S":
+            print(new)
+        if instruction == "N" or instruction == "S":
             new = [list(idx) for idx in zip(*new)]
 
-        self.matrix = tuple(tuple(m) for m in new)
+        self.matrix = new
 
     def read(self, instructions):
-        self.move(instructions)
+        for instruction in instructions:
+            self.move(instruction)
 
     def state(self):
         state = [list(m) for m in self.matrix]
