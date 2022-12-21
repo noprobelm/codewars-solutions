@@ -24,41 +24,39 @@ class Blobservation:
         return matrix
 
     def move(self, instruction):
-        def execute():
-            matrix = self.matrix
-            is_transposed = False
-            is_reversed = False
+        matrix = self.matrix
+        is_transposed = False
+        is_reversed = False
 
-            if re.search('N|S', instruction):
-                matrix = self._transpose(matrix)
-                is_transposed = True
-            if re.search('S|E', instruction):
-                matrix = [n[::-1] for n in matrix]
-                is_reversed = True
-            matrix = self._remove_zeros(matrix)
+        if re.search('N|S', instruction):
+            matrix = self._transpose(matrix)
+            is_transposed = True
+        if re.search('S|E', instruction):
+            matrix = [n[::-1] for n in matrix]
+            is_reversed = True
+        matrix = self._remove_zeros(matrix)
 
-            new = [list(m) for m in matrix]
-            for idm, m in enumerate(new):
-                idn = 0
-                absorb = [[m[idn]]]
-                while idn < len(m) - 1:
-                    if m[idn] > m[idn + 1]:
-                        absorb[-1].append(m[idn + 1])
-                    else:
-                        absorb.append([m[idn + 1]])
-                    idn += 1
-                m = [sum(a) for a in absorb]
-                new[idm] = m
+        new = [list(m) for m in matrix]
+        for idm, m in enumerate(new):
+            idn = 0
+            absorb = [[m[idn]]]
+            while idn < len(m) - 1:
+                if m[idn] > m[idn + 1]:
+                    absorb[-1].append(m[idn + 1])
+                else:
+                    absorb.append([m[idn + 1]])
+                idn += 1
+            m = [sum(a) for a in absorb]
+            new[idm] = m
 
-            new = self._fill_zeros(new)
-            if is_reversed is True:
-                new = [n[::-1] for n in new]
-            if is_transposed is True:
-                new = self._transpose(new)
+        new = self._fill_zeros(new)
+        if is_reversed is True:
+            new = [n[::-1] for n in new]
+        if is_transposed is True:
+            new = self._transpose(new)
 
-            self.matrix = tuple(tuple(m) for m in new)
+        self.matrix = tuple(tuple(m) for m in new)
 
-        execute()
 
     def read(self, instructions):
         for instruction in instructions:
