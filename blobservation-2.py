@@ -6,9 +6,11 @@ class Blobservation:
     def __init__(self, matrix):
         self.matrix = matrix
 
+    @staticmethod
+    def _transpose(matrix):
+        return tuple(tuple(idx) for idx in zip(*matrix))
+
     def move(self, instruction):
-        def transpose(matrix):
-            return [list(idx) for idx in zip(*matrix)]
 
         def filter_nonzeros(matrix):
             return [list(filter(lambda x: x != 0, m)) for m in matrix]
@@ -21,12 +23,12 @@ class Blobservation:
             return matrix
 
         def execute():
-            new = [list(m) for m in self.matrix]
+            new = self.matrix
             is_transposed = False
             is_reversed = False
 
             if re.search('N|S', instruction):
-                new = transpose(new)
+                new = self._transpose(new)
                 is_transposed = True
             if re.search('S|E', instruction):
                 new = [n[::-1] for n in new]
@@ -49,7 +51,7 @@ class Blobservation:
             if is_reversed is True:
                 new = [n[::-1] for n in new]
             if is_transposed is True:
-                new = [list(idx) for idx in zip(*new)]
+                new = self._transpose(new)
 
             self.matrix = tuple(tuple(m) for m in new)
 
@@ -69,9 +71,9 @@ class Blobservation:
             return matrix
 
         state = shrink(self.matrix)
-        state = tuple(tuple(idx) for idx in zip(*state))
+        state = self._transpose(state)
         state = shrink(state)
-        state = tuple(tuple(idx) for idx in zip(*state))
+        state = self._transpose(state)
         return state
 
 
