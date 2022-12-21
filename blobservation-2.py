@@ -51,7 +51,7 @@ class Blobservation:
             if is_transposed is True:
                 new = [list(idx) for idx in zip(*new)]
 
-            self.matrix = new
+            self.matrix = tuple(tuple(m) for m in new)
 
         execute()
 
@@ -60,18 +60,18 @@ class Blobservation:
             self.move(instruction)
 
     def state(self):
-        state = [list(m) for m in self.matrix]
-        while len([n for n in state[0] if n == 0]) == len(state[0]):
-            del state[0]
-        while len([n for n in state[-1] if n == 0]) == len(state[-1]):
-            del state[0]
-        state = [list(idx) for idx in zip(*state)]
-        while len([n for n in state[0] if n == 0]) == len(state[0]):
-            del state[0]
-        while len([n for n in state[-1] if n == 0]) == len(state[-1]):
-            del state[0]
-        state = [tuple(idx) for idx in zip(*state)]
-        state = tuple(state)
+        def shrink(matrix):
+            while len([n for n in matrix[0] if n == 0]) == len(matrix[0]):
+                del matrix[0]
+            while len([n for n in matrix[-1] if n == 0]) == len(matrix[-1]):
+                del matrix[0]
+
+            return matrix
+
+        state = shrink(self.matrix)
+        state = tuple(tuple(idx) for idx in zip(*state))
+        state = shrink(state)
+        state = tuple(tuple(idx) for idx in zip(*state))
         return state
 
 
