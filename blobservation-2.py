@@ -2,6 +2,38 @@ import codewars_test as test
 from typing import Tuple, List
 import re
 
+"""
+PROBLEM
+------
+Original url:  https://www.codewars.com/kata/5f8fb3c06c8f520032c1e091/train/python
+------
+Overview
+
+You have an m x n rectangular matrix (grid) where each index is occupied by a blob.
+Each blob is given a positive integer value; let's say it represents its mass.
+Each blob is immobile on its own, but when the terrain is tilted downward toward a cardinal direction, all blobs will roll toward that direction.
+The grid is a closed environment, so the blobs are confined within the boundaries of the grid.
+Objective
+
+You will write a class Blobservation. The class will be given a matrix of positive integers to create an instance. The class should also include two methods: read and state.
+
+The read method will take a string of directions (N,W,S,E representing their respective cardinal directions). This provides the sequence of directional tilts to the grid.
+
+The state method should return the current state of the grid in as small a rectangular matrix as possible. In this grid, empty spaces should be filled with 0.
+
+Blob Movement
+
+The grid can tilt in any of the four cardinal directions (ie. north, east, south, west). When tilted, all blobs on the grid will roll in the tilted direction until blocked by another blob or the grid's boundary.
+Blob Consumption
+
+    If a smaller rolling blob collides with a larger blob, the larger blob will absorb the smaller one only if the smaller one is moving toward the larger. Otherwise, the blobs simply end up next to each other.
+    In our test example below, during the first read ("E" for east), the 6 blob in the top row absorbs the 4 blob on its left, but the 9 blob in the top left does not absorb the 4 blob.
+    When blobs are consumed in a given move (tilt), all merging occurs concurrently. During the first tilt in our test example below, the blobs in the bottom row merge into one; the "9" absorbs the "6" while the "6" absorbs the "3", resulting in the "18".
+    Zeroes are empty spaces between blobs and will have no effect on merges; treat them like they don't exist.
+    Let's say you have the grid: [ [4,0,0,6,0,8] ]
+    If we read the direction "E", we get the following when we call the state method: [ [18] ].
+
+"""
 
 class Blobservation:
     """
