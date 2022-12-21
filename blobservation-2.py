@@ -13,7 +13,7 @@ class Blobservation:
         def filter_nonzeros(matrix):
             return [list(filter(lambda x: x != 0, m)) for m in matrix]
 
-        def fill(matrix):
+        def fill_zeros(matrix):
             max_array = max([len(m) for m in matrix])
             for m in matrix:
                 while len(m) < max_array:
@@ -46,7 +46,7 @@ class Blobservation:
                     idy += 1
                 m = [sum(a) for a in absorb]
                 new[idx] = m
-            new = fill(new)
+            new = fill_zeros(new)
             if is_reversed is True:
                 new = [n[::-1] for n in new]
             if is_transposed is True:
