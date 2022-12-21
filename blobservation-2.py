@@ -1,42 +1,43 @@
 import codewars_test as test
+from typing import Tuple, List
 import re
 
 
 class Blobservation:
-    def __init__(self, matrix):
+    def __init__(self, matrix: Tuple[Tuple[int, ...], ...]) -> None:
         self.matrix = matrix
 
     @staticmethod
-    def _transpose(matrix):
+    def _transpose(matrix: Tuple[Tuple[int, ...], ...]) -> Tuple[Tuple[int, ...], ...]:
         return tuple(tuple(idx) for idx in zip(*matrix))
 
     @staticmethod
-    def _remove_zeros(matrix):
+    def _remove_zeros(matrix: Tuple[Tuple[int, ...], ...]) -> Tuple[Tuple[int, ...], ...]:
         matrix = [list(filter(lambda x: x != 0, m)) for m in matrix]
         return tuple(tuple(m) for m in matrix)
 
     @staticmethod
-    def _fill_zeros(matrix):
+    def _fill_zeros(matrix: List[List[int]]) -> Tuple[Tuple[int, ...], ...]:
         max_array = max([len(m) for m in matrix])
         for m in matrix:
             while len(m) < max_array:
                 m.append(0)
-        return matrix
+        return tuple([tuple(n) for n in matrix])
 
     def move(self, instruction):
-        matrix = self.matrix
+        new = self.matrix
         is_transposed = False
         is_reversed = False
 
         if re.search('N|S', instruction):
-            matrix = self._transpose(matrix)
+            new = self._transpose(new)
             is_transposed = True
         if re.search('S|E', instruction):
-            matrix = [n[::-1] for n in matrix]
+            new = tuple([m[::-1] for m in new])
             is_reversed = True
-        matrix = self._remove_zeros(matrix)
+        new = self._remove_zeros(new)
 
-        new = [list(m) for m in matrix]
+        new = [list(m) for m in new]
         for idm, m in enumerate(new):
             idn = 0
             absorb = [[m[idn]]]
@@ -51,12 +52,11 @@ class Blobservation:
 
         new = self._fill_zeros(new)
         if is_reversed is True:
-            new = [n[::-1] for n in new]
+            new = tuple([tuple(m[::-1]) for m in new])
         if is_transposed is True:
             new = self._transpose(new)
 
         self.matrix = tuple(tuple(m) for m in new)
-
 
     def read(self, instructions):
         for instruction in instructions:
