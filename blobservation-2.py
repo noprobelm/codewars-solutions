@@ -10,31 +10,34 @@ class Blobservation:
     def _transpose(matrix):
         return tuple(tuple(idx) for idx in zip(*matrix))
 
+    @staticmethod
+    def _remove_zeros(matrix):
+        matrix = [list(filter(lambda x: x != 0, m)) for m in matrix]
+        return tuple(tuple(m) for m in matrix)
+
+    @staticmethod
+    def _fill_zeros(matrix):
+        max_array = max([len(m) for m in matrix])
+        for m in matrix:
+            while len(m) < max_array:
+                m.append(0)
+        return matrix
+
     def move(self, instruction):
-
-        def filter_nonzeros(matrix):
-            return [list(filter(lambda x: x != 0, m)) for m in matrix]
-
-        def fill_zeros(matrix):
-            max_array = max([len(m) for m in matrix])
-            for m in matrix:
-                while len(m) < max_array:
-                    m.append(0)
-            return matrix
-
         def execute():
-            new = self.matrix
+            matrix = self.matrix
             is_transposed = False
             is_reversed = False
 
             if re.search('N|S', instruction):
-                new = self._transpose(new)
+                matrix = self._transpose(matrix)
                 is_transposed = True
             if re.search('S|E', instruction):
-                new = [n[::-1] for n in new]
+                matrix = [n[::-1] for n in matrix]
                 is_reversed = True
-            new = filter_nonzeros(new)
+            matrix = self._remove_zeros(matrix)
 
+            new = [list(m) for m in matrix]
             for idm, m in enumerate(new):
                 idn = 0
                 absorb = [[m[idn]]]
@@ -47,7 +50,7 @@ class Blobservation:
                 m = [sum(a) for a in absorb]
                 new[idm] = m
 
-            new = fill_zeros(new)
+            new = self._fill_zeros(new)
             if is_reversed is True:
                 new = [n[::-1] for n in new]
             if is_transposed is True:
