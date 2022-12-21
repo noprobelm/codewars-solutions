@@ -1,6 +1,4 @@
 import codewars_test as test
-import numpy as np
-
 
 class Blobservation:
     def __init__(self, matrix):
