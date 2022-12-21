@@ -1,5 +1,6 @@
 import codewars_test as test
 
+
 class Blobservation:
     def __init__(self, matrix):
         self.matrix = matrix
@@ -9,7 +10,7 @@ class Blobservation:
             return [list(idx) for idx in zip(*matrix)]
 
         def filter_nonzeros(matrix):
-            return [list(filter(lambda x: x!=0, m)) for m in matrix]
+            return [list(filter(lambda x: x != 0, m)) for m in matrix]
 
         def fill_zeros(matrix):
             max_array = max([len(m) for m in matrix])
@@ -31,11 +32,11 @@ class Blobservation:
             absorb.append([m[idy]])
             while idy < len(m) - 1:
 
-                if m[idy] > m[idy+1]:
-                    absorb[-1].append(m[idy+1])
+                if m[idy] > m[idy + 1]:
+                    absorb[-1].append(m[idy + 1])
                 else:
-                    absorb.append([m[idy+1]])
-                idy+=1
+                    absorb.append([m[idy + 1]])
+                idy += 1
             m = [sum(a) for a in absorb]
             new[idx] = m
 
@@ -72,11 +73,7 @@ class Blobservation:
 def example_tests():
     @test.describe("Verify correctness of step-by-step instructions")
     def example1():
-        grid = (
-            (9, 4, 6),
-            (8, 8, 8),
-            (3, 6, 9)
-        )
+        grid = ((9, 4, 6), (8, 8, 8), (3, 6, 9))
         instructions = ("E", "S", "E", "N")
         transition_steps = (
             (
@@ -101,6 +98,7 @@ def example_tests():
         blobs = Blobservation(grid)
 
         for i, move in enumerate(instructions):
+
             @test.it(f"Reading instruction: \"{move}\"")
             def single_steps():
                 blobs.read(move)
