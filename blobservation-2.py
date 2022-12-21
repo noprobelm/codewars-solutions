@@ -19,7 +19,7 @@ class Blobservation:
                     m.append(0)
             return matrix
 
-        def move():
+        def execute():
             new = [list(m) for m in self.matrix]
             is_transposed = False
             is_reversed = False
@@ -55,7 +55,7 @@ class Blobservation:
 
             self.matrix = new
 
-        move()
+        execute()
 
     def read(self, instructions):
         for instruction in instructions:
