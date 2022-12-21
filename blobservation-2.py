@@ -33,19 +33,18 @@ class Blobservation:
                 is_reversed = True
             new = filter_nonzeros(new)
 
-            for idx, m in enumerate(new):
-                idy = 0
-                absorb = []
-                absorb.append([m[idy]])
-                while idy < len(m) - 1:
-
-                    if m[idy] > m[idy + 1]:
-                        absorb[-1].append(m[idy + 1])
+            for idm, m in enumerate(new):
+                idn = 0
+                absorb = [[m[idn]]]
+                while idn < len(m) - 1:
+                    if m[idn] > m[idn + 1]:
+                        absorb[-1].append(m[idn + 1])
                     else:
-                        absorb.append([m[idy + 1]])
-                    idy += 1
+                        absorb.append([m[idn + 1]])
+                    idn += 1
                 m = [sum(a) for a in absorb]
-                new[idx] = m
+                new[idm] = m
+
             new = fill_zeros(new)
             if is_reversed is True:
                 new = [n[::-1] for n in new]
