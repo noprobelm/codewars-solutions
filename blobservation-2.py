@@ -24,6 +24,7 @@ class Blobservation:
         - _fill_zeros: Static method for internal use. Adds zeros as necessary to make all rows of a matrix the same
         length.
     """
+
     def __init__(self, matrix: Tuple[Tuple[int, ...], ...]) -> None:
         self.matrix = matrix
 
@@ -135,6 +136,7 @@ class Blobservation:
             del state[0]
             state = self._transpose(state)
         return state
+
 
 @test.describe("Example Tests")
 def example_tests():
