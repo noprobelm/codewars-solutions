@@ -19,35 +19,43 @@ class Blobservation:
                     m.append(0)
             return matrix
 
-        new = [list(m) for m in self.matrix]
-        if instruction == "N" or instruction == "S":
-            new = transpose(new)
-        new = filter_nonzeros(new)
-        if instruction == "S" or instruction == "E":
-            new = [n[::-1] for n in new]
+        def move():
+            new = [list(m) for m in self.matrix]
+            is_transposed = False
+            is_reversed = False
 
-        for idx, m in enumerate(new):
-            idy = 0
-            absorb = []
-            absorb.append([m[idy]])
-            while idy < len(m) - 1:
+            if instruction == "N" or instruction == "S":
+                new = transpose(new)
+                is_transposed = True
+            if instruction == "S" or instruction == "E":
+                new = [n[::-1] for n in new]
+                is_reversed = True
+            new = filter_nonzeros(new)
 
-                if m[idy] > m[idy + 1]:
-                    absorb[-1].append(m[idy + 1])
-                else:
-                    absorb.append([m[idy + 1]])
-                idy += 1
-            m = [sum(a) for a in absorb]
-            new[idx] = m
+            for idx, m in enumerate(new):
+                idy = 0
+                absorb = []
+                absorb.append([m[idy]])
+                while idy < len(m) - 1:
 
-        new = fill(new)
-        if instruction == "S" or instruction == "E":
-            new = [n[::-1] for n in new]
-            print(new)
-        if instruction == "N" or instruction == "S":
-            new = [list(idx) for idx in zip(*new)]
+                    if m[idy] > m[idy + 1]:
+                        absorb[-1].append(m[idy + 1])
+                    else:
+                        absorb.append([m[idy + 1]])
+                    idy += 1
+                m = [sum(a) for a in absorb]
+                new[idx] = m
 
-        self.matrix = new
+            new = fill(new)
+            if instruction == "S" or instruction == "E":
+                new = [n[::-1] for n in new]
+                print(new)
+            if instruction == "N" or instruction == "S":
+                new = [list(idx) for idx in zip(*new)]
+
+            self.matrix = new
+
+        move()
 
     def read(self, instructions):
         for instruction in instructions:
