@@ -1,7 +1,6 @@
 fn main() {
     let num: i64 = 2;
     let answer: bool = is_prime(num);
-    println!("{answer}")
 }
 
 fn is_prime(x: i64) -> bool {
