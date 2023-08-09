@@ -1,6 +1,5 @@
 fn main() {
     let answer = high_and_low("1 2 3 4 5");
-    println!("{answer}");
 }
 
 fn high_and_low(numbers: &str) -> String {
