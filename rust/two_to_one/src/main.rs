@@ -1,5 +1,4 @@
 fn main() {
-    println!("Hello, world!");
     let answer = longest("xyaabbbccccdefww", "xxxxyyyyabklmopq");
 }
 
