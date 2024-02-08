@@ -1,5 +1,6 @@
 fn main() {
     let answer = longest("xyaabbbccccdefww", "xxxxyyyyabklmopq");
+    println!("{answer}");
 }
 
 fn longest(a1: &str, a2: &str) -> String {
