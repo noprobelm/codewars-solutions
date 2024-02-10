@@ -17,6 +17,7 @@ fn nb_months(old: i32, new: i32, saving: i32, perc: f64) -> (i32, i32) {
         new *= perc;
         savings_accrued += saving as f64;
     }
+
     let remaining = old + savings_accrued - new;
     (month, remaining.round() as i32)
 }
