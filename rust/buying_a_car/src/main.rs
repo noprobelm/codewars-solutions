@@ -1,7 +1,3 @@
-fn main() {
-    let ans = nb_months(12000, 8000, 1000, 1.5);
-}
-
 fn nb_months(old: i32, new: i32, saving: i32, perc: f64) -> (i32, i32) {
     if old > new {
         return (0, old - new);
