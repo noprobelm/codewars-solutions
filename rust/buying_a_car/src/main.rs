@@ -2,19 +2,23 @@ fn nb_months(old: i32, new: i32, saving: i32, perc: f64) -> (i32, i32) {
     if old > new {
         return (0, old - new);
     }
-    let (mut _old, mut _new, mut _saving, mut _perc): (f64, f64, f64, f64) = (old as f64, new as f64, 0.0, perc);
-    let mut month: i32 = 1;
-    while _old + _saving < _new {
-        if month % 2 == 0 {
-            _perc += 0.5;
-        }
-        _old = _old - _old * _perc / 100.0;
-        _new = _new - _new * _perc / 100.0;
-        _saving += saving as f64;
+    let (mut old, mut new, mut savings_accrued, mut perc): (f64, f64, f64, f64) = (old as f64, new as f64, 0.0, 1_f64 - (perc / 100_f64));
+
+    let mut month: i32 = 0;
+
+    while old + savings_accrued < new {
         month += 1;
+
+        if month % 2 == 0 {
+            perc -= 0.005
+        }
+
+        old *= perc;
+        new *= perc;
+        savings_accrued += saving as f64;
     }
-    let remaining = _old + _saving - _new;
-    (month - 1, remaining.round() as i32)
+    let remaining = old + savings_accrued - new;
+    (month, remaining.round() as i32)
 }
 
 #[test]
