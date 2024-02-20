@@ -7,9 +7,9 @@ fn find_missing(seq: &[i32]) -> i32 {
     if common_diff == 0 {
         return seq[0];
     }
-    for (i, _) in seq.iter().enumerate().skip(1) {
+    for i in 1..seq.len() {
         if seq[i] - seq[i - 1] != common_diff {
-            return seq[i as usize - 1] + common_diff;
+            return seq[i - 1] + common_diff;
         }
     }
     panic!("No missing number found in the sequence");
